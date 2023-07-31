@@ -9,7 +9,7 @@ const Todo = () => {
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (todoInput.length <= 0) return;
+    if (todoInput.trim().length <= 0) return;
     todoValue?.actions.addTodo(todoInput);
     setTodoInput("");
   };

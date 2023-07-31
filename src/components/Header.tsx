@@ -16,6 +16,7 @@ const Header = () => {
   return loginValue?.state.isLogin ? (
     <MyHeader>
       <div className="btn-wrapper">
+        <button onClick={() => navigate("/")}>홈</button>
         <button onClick={handleSignout}>로그아웃</button>
       </div>
     </MyHeader>
@@ -31,6 +32,7 @@ const MyHeader = styled.header`
   .btn-wrapper {
     display: flex;
     padding: 30px 100px 0 0;
+    gap: 10px;
     justify-content: flex-end;
   }
 

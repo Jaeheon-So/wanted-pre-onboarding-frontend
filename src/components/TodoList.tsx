@@ -16,7 +16,15 @@ const TodoList = () => {
     );
   });
 
-  return <Container>{todos}</Container>;
+  return (
+    <Container>
+      {todos?.length === 0 ? (
+        <div className="empty">할일을 추가해보세요.</div>
+      ) : (
+        todos
+      )}
+    </Container>
+  );
 };
 
 const Container = styled.ul`
@@ -26,6 +34,11 @@ const Container = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  .empty {
+    text-align: center;
+    color: grey;
+  }
 `;
 
 export default TodoList;

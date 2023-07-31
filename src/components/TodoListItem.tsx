@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { styled } from "styled-components";
 
 type Props = {
@@ -9,8 +9,10 @@ type Props = {
 const TodoListItem = ({ todoItem, callbacks }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editInput, setEditInput] = useState(todoItem.todo);
+  const editref = useRef<HTMLInputElement>(null);
 
   const handleEditSubmit = () => {
+    if (editInput.trim().length <= 0) return editref.current?.focus();
     callbacks.updateTodo(todoItem.id, editInput, todoItem.isCompleted);
     setIsEditing(false);
   };
@@ -21,6 +23,8 @@ const TodoListItem = ({ todoItem, callbacks }: Props) => {
         <input
           className="edit-task"
           value={editInput}
+          ref={editref}
+          autoFocus
           onChange={(e) => setEditInput(e.target.value)}
         />
       ) : (

@@ -13,14 +13,16 @@ const Header = () => {
     navigate("/", { replace: true });
   };
 
-  return loginValue?.state.isLogin ? (
+  return (
     <MyHeader>
       <div className="btn-wrapper">
         <button onClick={() => navigate("/")}>홈</button>
-        <button onClick={handleSignout}>로그아웃</button>
+        {loginValue?.state.isLogin ? (
+          <button onClick={handleSignout}>로그아웃</button>
+        ) : null}
       </div>
     </MyHeader>
-  ) : null;
+  );
 };
 
 const MyHeader = styled.header`

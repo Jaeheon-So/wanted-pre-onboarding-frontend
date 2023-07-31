@@ -5,6 +5,7 @@ import {
   getTodoApi,
   updateTodoApi,
 } from "../apis/todo";
+import { AxiosError } from "axios";
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -27,28 +28,44 @@ export const TodoProvider = ({ children }: Props) => {
   const [todoList, setTodoList] = useState<TodoData[]>([]);
 
   const fetchTodo = async () => {
-    const todoListData = await getTodoApi();
-    setTodoList(todoListData);
+    try {
+      const todoListData = await getTodoApi();
+      setTodoList(todoListData);
+    } catch (e) {
+      if (e instanceof AxiosError) alert(e.response?.data.message);
+    }
   };
 
   const addTodo = async (todo: string) => {
-    const data = await createTodoApi(todo);
-    setTodoList((prev) => [...prev, data]);
+    try {
+      const data = await createTodoApi(todo);
+      setTodoList((prev) => [...prev, data]);
+    } catch (e) {
+      if (e instanceof AxiosError) alert(e.response?.data.message);
+    }
   };
 
   const deleteTodo = async (id: number) => {
-    await deleteTodoApi(id);
-    setTodoList((prev) => prev.filter((item) => id !== item.id));
+    try {
+      await deleteTodoApi(id);
+      setTodoList((prev) => prev.filter((item) => id !== item.id));
+    } catch (e) {
+      if (e instanceof AxiosError) alert(e.response?.data.message);
+    }
   };
 
   const updateTodo = async (id: number, todo: string, isCompleted: boolean) => {
-    const data = await updateTodoApi(id, todo, isCompleted);
-    setTodoList((prev) => {
-      const index = todoList.findIndex((todo) => todo.id === id);
-      const newTodoList = prev.map((todo) => todo);
-      newTodoList[index] = data;
-      return newTodoList;
-    });
+    try {
+      const data = await updateTodoApi(id, todo, isCompleted);
+      setTodoList((prev) => {
+        const index = todoList.findIndex((todo) => todo.id === id);
+        const newTodoList = prev.map((todo) => todo);
+        newTodoList[index] = data;
+        return newTodoList;
+      });
+    } catch (e) {
+      if (e instanceof AxiosError) alert(e.response?.data.message);
+    }
   };
 
   const value: TodoListContextValueType = {

@@ -21,6 +21,7 @@ const TodoListItem = ({ todoItem, callbacks }: Props) => {
     <TodoItem>
       {isEditing ? (
         <input
+          data-testid="modify-input"
           className="edit-task"
           value={editInput}
           ref={editref}

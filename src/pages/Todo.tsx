@@ -14,10 +14,6 @@ const Todo = () => {
     setTodoInput("");
   };
 
-  // useEffect(() => {
-  //   todoValue?.actions.fetchTodo();
-  // }, []);
-
   return (
     <TodoWrapper>
       <TodoContainer>
